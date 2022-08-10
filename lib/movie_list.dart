@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'http_helper.dart';
+import 'movie_detail.dart';
 
 class MovieList extends StatefulWidget {
   const MovieList({Key? key}) : super(key: key);
@@ -48,6 +49,11 @@ class _MovieListState extends State<MovieList> {
                   " - Vote: ${movie.voteAverage.toString()}",
                 ),
                 leading: CircleAvatar(backgroundImage: image),
+                onTap: () {
+                  MaterialPageRoute route =
+                      MaterialPageRoute(builder: (_) => MovieDetail(movie));
+                  Navigator.push(context, route);
+                },
               ),
             );
           },

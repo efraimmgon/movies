@@ -4,7 +4,7 @@ class Movie {
   double voteAverage;
   String releaseDate;
   String overview;
-  String posterPath;
+  String? posterPath;
 
   Movie(
     this.id,
