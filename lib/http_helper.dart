@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'movie.dart';
 
 class HttpHelper {
   final String urlKey = 'api_key=API_KEY';
@@ -7,11 +9,17 @@ class HttpHelper {
   final String urlUpcoming = '/upcoming?';
   final String urlLanguage = '&language=en-US';
 
-  Future<String?> getUpcoming() async {
+  /// Access the DB API and get movies json data.
+  /// Returns a list of movies.
+  Future<List?> getUpcoming() async {
     final Uri upcoming = (urlBase + urlUpcoming + urlKey + urlLanguage) as Uri;
     http.Response result = await http.get(upcoming);
+
     if (result.statusCode == HttpStatus.ok) {
-      return result.body;
+      final jsonResponse = json.decode(result.body);
+      final moviesResult = jsonResponse['results'];
+      List movies = moviesResult.map((m) => Movie.fromJson(m)).toList();
+      return movies;
     } else {
       return null;
     }
