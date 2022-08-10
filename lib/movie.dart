@@ -1,4 +1,4 @@
-\class Movie {
+class Movie {
   int id;
   String title;
   double voteAverage;
@@ -15,11 +15,11 @@
     this.posterPath,
   );
 
-  Movie.fromJson(Map<String, dynamic> parsedJson):
-    id = parsedJson['id'],
-    title = parsedJson['title'],
-    voteAverage = parsedJson['vote_average'] * 1.0,
-    releaseDate = parsedJson['release_date'],
-    overview = parsedJson['overview'],
-    posterPath = parsedJson['poster_path'];
+  Movie.fromJson(Map<String, dynamic> parsedJson)
+      : id = parsedJson['id'],
+        title = parsedJson['title'],
+        voteAverage = parsedJson['vote_average'] * 1.0,
+        releaseDate = parsedJson['release_date'],
+        overview = parsedJson['overview'],
+        posterPath = parsedJson['poster_path'];
 }

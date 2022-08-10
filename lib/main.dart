@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'movie_list.dart';
 
 void main(List<String> args) {
-  runApp(MyMovies());
+  runApp(const MyMovies());
 }
 
 class MyMovies extends StatelessWidget {
@@ -15,7 +15,7 @@ class MyMovies extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
       ),
-      home: Home(),
+      home: const Home(),
     );
   }
 }
@@ -25,6 +25,6 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MovieList();
+    return const MovieList();
   }
 }

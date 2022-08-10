@@ -11,25 +11,45 @@ class MovieList extends StatefulWidget {
 class _MovieListState extends State<MovieList> {
   String result = "";
   late HttpHelper helper;
+  late int moviesCount;
+  List? movies;
 
   @override
   void initState() {
     helper = HttpHelper();
+    initialize();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    helper.getUpcoming().then((value) {
-      setState(() {
-        result = value!;
-      });
-    });
     return Scaffold(
-      appBar: AppBar(title: Text('Movies')),
-      body: Container(
-        child: Text(result),
-      ),
-    );
+        appBar: AppBar(title: const Text('Movies')),
+        body: ListView.builder(
+          itemCount: moviesCount,
+          itemBuilder: (BuildContext context, int position) {
+            var movie = movies![position];
+            return Card(
+              color: Colors.white,
+              elevation: 2.0,
+              child: ListTile(
+                title: Text(movie.title),
+                subtitle: Text(
+                  "Released: ${movie.releaseDate}"
+                  " - Vote: ${movie.voteAverage.toString()}",
+                ),
+              ),
+            );
+          },
+        ));
+  }
+
+  Future initialize() async {
+    movies = [];
+    movies = await helper.getUpcoming();
+    setState(() {
+      moviesCount = movies!.length;
+      movies = movies;
+    });
   }
 }
