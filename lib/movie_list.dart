@@ -40,12 +40,15 @@ class _MovieListState extends State<MovieList> {
                 setState(() {
                   if (visibleIcon.icon == Icons.search) {
                     visibleIcon = const Icon(Icons.cancel);
-                    searchBar = const TextField(
+                    searchBar = TextField(
                       textInputAction: TextInputAction.search,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20.0,
                       ),
+                      onSubmitted: (String text) {
+                        search(text);
+                      },
                     );
                   } else {
                     setState(() {
@@ -91,6 +94,14 @@ class _MovieListState extends State<MovieList> {
   Future initialize() async {
     movies = [];
     movies = await helper.getUpcoming();
+    setState(() {
+      moviesCount = movies!.length;
+      movies = movies;
+    });
+  }
+
+  Future search(text) async {
+    movies = await helper.findMovies(text);
     setState(() {
       moviesCount = movies!.length;
       movies = movies;
