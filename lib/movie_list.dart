@@ -17,6 +17,8 @@ class _MovieListState extends State<MovieList> {
   late HttpHelper helper;
   late int moviesCount;
   List? movies;
+  Icon visibleIcon = const Icon(Icons.search);
+  Widget searchBar = const Text("Movies");
 
   @override
   void initState() {
@@ -29,7 +31,33 @@ class _MovieListState extends State<MovieList> {
   Widget build(BuildContext context) {
     NetworkImage image;
     return Scaffold(
-        appBar: AppBar(title: const Text('Movies')),
+        appBar: AppBar(
+          title: searchBar,
+          actions: [
+            IconButton(
+              icon: visibleIcon,
+              onPressed: () {
+                setState(() {
+                  if (visibleIcon.icon == Icons.search) {
+                    visibleIcon = const Icon(Icons.cancel);
+                    searchBar = const TextField(
+                      textInputAction: TextInputAction.search,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                      ),
+                    );
+                  } else {
+                    setState(() {
+                      visibleIcon = const Icon(Icons.search);
+                      searchBar = const Text('Movies');
+                    });
+                  }
+                });
+              },
+            )
+          ],
+        ),
         body: ListView.builder(
           itemCount: moviesCount,
           itemBuilder: (BuildContext context, int position) {
